@@ -1,7 +1,9 @@
 resource "aws_instance" "example" {
   ami           = var.ami_id
   # if dev t3.micro, otherwise t3.small
-  instance_type = var.instance_type
+  # instance_type = var.instance_type
+
+  instance_type = var.environment == "dev" ? "t3.micro" : "t3.small"
 
   vpc_security_group_ids = [aws_security_group.allow_tls.id] 
   # this ec2 instance is dependent on sg
